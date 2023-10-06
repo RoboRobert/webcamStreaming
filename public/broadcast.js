@@ -1,16 +1,4 @@
 const peerConnections = {};
-// const config = {
-//   iceServers: [
-//     { 
-//       "urls": "stun:stun.l.google.com:19302",
-//     },
-//     { 
-//       "urls": "turn:TURN_IP?transport=tcp",
-//       "username": "TURN_USERNAME",
-//       "credential": "TURN_CREDENTIALS"
-//     }
-//   ]
-// };
 
 const socket = io.connect(window.location.origin);
 
@@ -39,9 +27,9 @@ socket.on("watcher", id => {
     });
 });
 
-// socket.on("candidate", (id, candidate) => {
-//   peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
-// });
+socket.on("candidate", (id, candidate) => {
+  peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
+});
 
 socket.on("disconnectPeer", id => {
   peerConnections[id].close();
@@ -54,10 +42,10 @@ window.onunload = window.onbeforeunload = () => {
 
 // Get camera and microphone
 const videoElement = document.querySelector("video");
-const audioSelect = document.querySelector("select#audioSource");
+// const audioSelect = document.querySelector("select#audioSource");
 const videoSelect = document.querySelector("select#videoSource");
 
-audioSelect.onchange = getStream;
+// audioSelect.onchange = getStream;
 videoSelect.onchange = getStream;
 
 getStream()
