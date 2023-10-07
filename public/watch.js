@@ -2,9 +2,6 @@ let peerConnection;
 
 const socket = io.connect(window.location.origin);
 const video = document.querySelector("video");
-// const enableAudioButton = document.querySelector("#enable-audio");
-
-// enableAudioButton.addEventListener("click", enableAudio)
 
 socket.on("offer", (id, description) => {
   peerConnection = new RTCPeerConnection();
@@ -25,7 +22,6 @@ socket.on("offer", (id, description) => {
   };
 });
 
-
 socket.on("candidate", (id, candidate) => {
   peerConnection
     .addIceCandidate(new RTCIceCandidate(candidate))
@@ -44,8 +40,3 @@ window.onunload = window.onbeforeunload = () => {
   socket.close();
   peerConnection.close();
 };
-
-// function enableAudio() {
-//   console.log("Enabling audio")
-//   video.muted = false;
-// }
